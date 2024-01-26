@@ -23,7 +23,7 @@ public:
         "host=localhost "
         "port=5432 "
         "user=postgres "
-        "password=Pizda1992 "
+        "password=Student1992 "
         "client_encoding=UTF8 ") {
 
         if (connection.is_open()) {
