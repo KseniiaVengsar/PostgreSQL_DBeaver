@@ -4,21 +4,21 @@
 #pragma execution_character_set("utf-8")
 
 
-//Метод, создающий структуру БД(таблицы).
-//Метод, позволяющий добавить нового клиента.
-//Метод, позволяющий добавить телефон для существующего клиента.
-//Метод, позволяющий изменить данные о клиенте.
-//Метод, позволяющий удалить телефон у существующего клиента.
-//Метод, позволяющий удалить существующего клиента.
-//Метод, позволяющий найти клиента по его данным — имени, фамилии, email или телефону.
+//РњРµС‚РѕРґ, СЃРѕР·РґР°СЋС‰РёР№ СЃС‚СЂСѓРєС‚СѓСЂСѓ Р‘Р”(С‚Р°Р±Р»РёС†С‹).
+//РњРµС‚РѕРґ, РїРѕР·РІРѕР»СЏСЋС‰РёР№ РґРѕР±Р°РІРёС‚СЊ РЅРѕРІРѕРіРѕ РєР»РёРµРЅС‚Р°.
+//РњРµС‚РѕРґ, РїРѕР·РІРѕР»СЏСЋС‰РёР№ РґРѕР±Р°РІРёС‚СЊ С‚РµР»РµС„РѕРЅ РґР»СЏ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРіРѕ РєР»РёРµРЅС‚Р°.
+//РњРµС‚РѕРґ, РїРѕР·РІРѕР»СЏСЋС‰РёР№ РёР·РјРµРЅРёС‚СЊ РґР°РЅРЅС‹Рµ Рѕ РєР»РёРµРЅС‚Рµ.
+//РњРµС‚РѕРґ, РїРѕР·РІРѕР»СЏСЋС‰РёР№ СѓРґР°Р»РёС‚СЊ С‚РµР»РµС„РѕРЅ Сѓ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРіРѕ РєР»РёРµРЅС‚Р°.
+//РњРµС‚РѕРґ, РїРѕР·РІРѕР»СЏСЋС‰РёР№ СѓРґР°Р»РёС‚СЊ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРіРѕ РєР»РёРµРЅС‚Р°.
+//РњРµС‚РѕРґ, РїРѕР·РІРѕР»СЏСЋС‰РёР№ РЅР°Р№С‚Рё РєР»РёРµРЅС‚Р° РїРѕ РµРіРѕ РґР°РЅРЅС‹Рј вЂ” РёРјРµРЅРё, С„Р°РјРёР»РёРё, email РёР»Рё С‚РµР»РµС„РѕРЅСѓ.
 
 
-//создадим структуру базы данных для хранения информации о клиентах
+//СЃРѕР·РґР°РґРёРј СЃС‚СЂСѓРєС‚СѓСЂСѓ Р±Р°Р·С‹ РґР°РЅРЅС‹С… РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РєР»РёРµРЅС‚Р°С…
 class ClientManager {
 public:
-    //конструктор
+    //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
     ClientManager() : connection(
-        //не забывай пробелы
+        //РЅРµ Р·Р°Р±С‹РІР°Р№ РїСЂРѕР±РµР»С‹
         "dbname=HomeWork "
         "host=localhost "
         "port=5432 "
@@ -34,12 +34,12 @@ public:
             std::cerr << "Can't open database" << std::endl;
         }
     }
-    // Метод, создающий структуру БД (таблицы)
+    // РњРµС‚РѕРґ, СЃРѕР·РґР°СЋС‰РёР№ СЃС‚СЂСѓРєС‚СѓСЂСѓ Р‘Р” (С‚Р°Р±Р»РёС†С‹)
     void createTables() {
-        //Для того, чтобы добавить запись в таблицу или обновить имеющиеся записи,необходимо:
-        //Создать объект work
+        //Р”Р»СЏ С‚РѕРіРѕ, С‡С‚РѕР±С‹ РґРѕР±Р°РІРёС‚СЊ Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ РёР»Рё РѕР±РЅРѕРІРёС‚СЊ РёРјРµСЋС‰РёРµСЃСЏ Р·Р°РїРёСЃРё,РЅРµРѕР±С…РѕРґРёРјРѕ:
+        //РЎРѕР·РґР°С‚СЊ РѕР±СЉРµРєС‚ work
         pqxx::work txn(connection);
-        //Вызвать метод exec(), указав в качестве аргумента запрос INSERT или UPDATE.2
+        //Р’С‹Р·РІР°С‚СЊ РјРµС‚РѕРґ exec(), СѓРєР°Р·Р°РІ РІ РєР°С‡РµСЃС‚РІРµ Р°СЂРіСѓРјРµРЅС‚Р° Р·Р°РїСЂРѕСЃ INSERT РёР»Рё UPDATE.2
         txn.exec(R"(
             CREATE TABLE IF NOT EXISTS clients (
                 id SERIAL PRIMARY KEY,
@@ -49,13 +49,13 @@ public:
                 phone_numbers TEXT[]
             )
         )");
-        //Завершить транзакцию, вызвав метод commit().
+        //Р—Р°РІРµСЂС€РёС‚СЊ С‚СЂР°РЅР·Р°РєС†РёСЋ, РІС‹Р·РІР°РІ РјРµС‚РѕРґ commit().
         txn.commit();
 
-        std::cout << "Таблица создана! Ура!" << std::endl;
+        std::cout << "РўР°Р±Р»РёС†Р° СЃРѕР·РґР°РЅР°! РЈСЂР°!" << std::endl;
     }
 
-    // Метод, позволяющий добавить нового клиента
+    // РњРµС‚РѕРґ, РїРѕР·РІРѕР»СЏСЋС‰РёР№ РґРѕР±Р°РІРёС‚СЊ РЅРѕРІРѕРіРѕ РєР»РёРµРЅС‚Р°
     void addClient(const std::string& firstName, const std::string& lastName, const std::string& email) {
         pqxx::work txn(connection);
         txn.exec_params(
@@ -64,9 +64,9 @@ public:
         );
         txn.commit();
 
-        std::cout << "Клиент добавлен." << std::endl;
+        std::cout << "РљР»РёРµРЅС‚ РґРѕР±Р°РІР»РµРЅ." << std::endl;
     }
-    // Метод, позволяющий добавить телефон для существующего клиента
+    // РњРµС‚РѕРґ, РїРѕР·РІРѕР»СЏСЋС‰РёР№ РґРѕР±Р°РІРёС‚СЊ С‚РµР»РµС„РѕРЅ РґР»СЏ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРіРѕ РєР»РёРµРЅС‚Р°
     void addPhoneNumber(int clientId, const std::string& phoneNumber) {
         pqxx::work txn(connection);
         txn.exec_params(
@@ -75,11 +75,11 @@ public:
         );
         txn.commit();
 
-        std::cout << "Номер телефона добавлен." << std::endl;
+        std::cout << "РќРѕРјРµСЂ С‚РµР»РµС„РѕРЅР° РґРѕР±Р°РІР»РµРЅ." << std::endl;
     }
 
 
-    // Метод, позволяющий изменить данные о клиенте
+    // РњРµС‚РѕРґ, РїРѕР·РІРѕР»СЏСЋС‰РёР№ РёР·РјРµРЅРёС‚СЊ РґР°РЅРЅС‹Рµ Рѕ РєР»РёРµРЅС‚Рµ
     void updateClient(int clientId, const std::string& firstName, const std::string& lastName, const std::string& email) {
         pqxx::work txn(connection);
         txn.exec_params(
@@ -88,10 +88,10 @@ public:
         );
         txn.commit();
 
-        std::cout << "Клиентская информация изменена." << std::endl;
+        std::cout << "РљР»РёРµРЅС‚СЃРєР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ РёР·РјРµРЅРµРЅР°." << std::endl;
     }
 
-    // Метод, позволяющий удалить телефон у существующего клиента
+    // РњРµС‚РѕРґ, РїРѕР·РІРѕР»СЏСЋС‰РёР№ СѓРґР°Р»РёС‚СЊ С‚РµР»РµС„РѕРЅ Сѓ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРіРѕ РєР»РёРµРЅС‚Р°
     void removePhoneNumber(int clientId, const std::string& phoneNumber) {
         pqxx::work txn(connection);
         txn.exec_params(
@@ -100,19 +100,19 @@ public:
         );
         txn.commit();
 
-        std::cout << "Номер телефона удалён." << std::endl;
+        std::cout << "РќРѕРјРµСЂ С‚РµР»РµС„РѕРЅР° СѓРґР°Р»С‘РЅ." << std::endl;
     }
 
-    // Метод, позволяющий удалить существующего клиента
+    // РњРµС‚РѕРґ, РїРѕР·РІРѕР»СЏСЋС‰РёР№ СѓРґР°Р»РёС‚СЊ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРіРѕ РєР»РёРµРЅС‚Р°
     void removeClient(int clientId) {
         pqxx::work txn(connection);
         txn.exec_params("DELETE FROM clients WHERE id = $1", clientId);
         txn.commit();
 
-        std::cout << "Клиент удалён." << std::endl;
+        std::cout << "РљР»РёРµРЅС‚ СѓРґР°Р»С‘РЅ." << std::endl;
     }
 
-    // Метод, позволяющий найти клиента по его данным — имени, фамилии, email или телефону
+    // РњРµС‚РѕРґ, РїРѕР·РІРѕР»СЏСЋС‰РёР№ РЅР°Р№С‚Рё РєР»РёРµРЅС‚Р° РїРѕ РµРіРѕ РґР°РЅРЅС‹Рј вЂ” РёРјРµРЅРё, С„Р°РјРёР»РёРё, email РёР»Рё С‚РµР»РµС„РѕРЅСѓ
     void findClient(const std::string& searchValue) {
         pqxx::work txn(connection);
         pqxx::result result = txn.exec_params(
@@ -121,23 +121,23 @@ public:
         );
 
         for (const auto& row : result) {
-            std::cout << "Клиент ID: " << row["id"].as<int>() << std::endl;
-            std::cout << "Имя: " << row["first_name"].as<std::string>() << std::endl;
-            std::cout << "Фамилия: " << row["last_name"].as<std::string>() << std::endl;
+            std::cout << "РљР»РёРµРЅС‚ ID: " << row["id"].as<int>() << std::endl;
+            std::cout << "РРјСЏ: " << row["first_name"].as<std::string>() << std::endl;
+            std::cout << "Р¤Р°РјРёР»РёСЏ: " << row["last_name"].as<std::string>() << std::endl;
             std::cout << "Email: " << row["email"].as<std::string>() << std::endl;
 
             auto phoneNumbersField = row["phone_numbers"];
             if (!phoneNumbersField.is_null()) {
                 auto phoneNumbers = phoneNumbersField.as<std::string>();
-                std::cout << "Телефон: " << phoneNumbers << std::endl;
+                std::cout << "РўРµР»РµС„РѕРЅ: " << phoneNumbers << std::endl;
             }
             else {
-                std::cout << "Телефон отсутствует." << std::endl;
+                std::cout << "РўРµР»РµС„РѕРЅ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚." << std::endl;
             }
         }
 
         if (result.empty()) {
-            std::cout << "Клиент отсутствует." << std::endl;
+            std::cout << "РљР»РёРµРЅС‚ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚." << std::endl;
         }
     }
 
@@ -158,11 +158,11 @@ int main() {
 
     ClientManager clientManager;
 
-    // Пример использования методов
-    clientManager.addClient("Женя", "Кашин", "Zenya@example.com");
-    clientManager.addClient("Яков", "Зорин", "Zorin@example.com");
-    clientManager.addClient("Тор", "Лютый", "Tor@example.com");
-    clientManager.addClient("Алеся", "Кукушкина", "Alesya@example.com");
+    // РџСЂРёРјРµСЂ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РјРµС‚РѕРґРѕРІ
+    clientManager.addClient("Р–РµРЅСЏ", "РљР°С€РёРЅ", "Zenya@example.com");
+    clientManager.addClient("РЇРєРѕРІ", "Р—РѕСЂРёРЅ", "Zorin@example.com");
+    clientManager.addClient("РўРѕСЂ", "Р›СЋС‚С‹Р№", "Tor@example.com");
+    clientManager.addClient("РђР»РµСЃСЏ", "РљСѓРєСѓС€РєРёРЅР°", "Alesya@example.com");
     clientManager.addPhoneNumber(2, "+55555");
     clientManager.updateClient(3, "bbbb", "bbbbb", "ludka@example.com");
     clientManager.removePhoneNumber(1, "+5555555");
@@ -173,10 +173,10 @@ int main() {
 
 
 	/*//std::cout << "hell";
-	//для исключений
+	//РґР»СЏ РёСЃРєР»СЋС‡РµРЅРёР№
 	try {
 		pqxx::connection con(
-			//не забывай пробелы
+			//РЅРµ Р·Р°Р±С‹РІР°Р№ РїСЂРѕР±РµР»С‹
 			"dbname=HomeWork "
 			"host=localhost "
 			"port=5432 "
@@ -185,7 +185,7 @@ int main() {
         if (con.is_open()) {
             std::cout << "Opened database successfully: " << con.dbname() << std::endl;
 
-            // Создаем таблицу clients
+            // РЎРѕР·РґР°РµРј С‚Р°Р±Р»РёС†Сѓ clients
             pqxx::work txn(con);
             txn.exec(R"(
                 CREATE TABLE IF NOT EXISTS clients (
